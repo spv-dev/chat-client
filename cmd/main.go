@@ -1,7 +1,23 @@
 package main
 
-import "github.com/spv-dev/chat-client/cmd/root"
+import (
+	"context"
+	"log"
+
+	"github.com/spv-dev/chat-client/internal/app"
+)
 
 func main() {
-	root.Execute()
+	ctx := context.Background()
+
+	a, err := app.NewApp(ctx)
+	if err != nil {
+		log.Fatalf("failed to init app: %v", err.Error())
+	}
+
+	err = a.Run()
+	if err != nil {
+		log.Fatalf("Failed to run app: %v", err.Error())
+	}
+
 }
